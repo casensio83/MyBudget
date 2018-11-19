@@ -5,37 +5,25 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_current_month_report"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Current Month Report" />
-        <item
-            android:id="@+id/nav_anual_report"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Anual Report" />
-        <item
             android:id="@+id/nav_create_category"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_library_add"
             android:title="Create Category" />
         <item
             android:id="@+id/nav_Settings"
             android:icon="@drawable/ic_menu_manage"
             android:title="Settings" />
-        <item
-            android:id="@+id/nav_About"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="About" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Reports">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nav_current_month_report"
+                android:icon="@drawable/ic_pie_chart2"
+                android:title="Current Month Report" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_anual_report"
+                android:icon="@drawable/ic_chart"
+                android:title="Anual Report" />
         </menu>
     </item>
 

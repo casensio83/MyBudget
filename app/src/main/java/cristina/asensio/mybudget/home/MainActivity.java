@@ -103,9 +103,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_Settings) {
 
-        } else if (id == R.id.nav_About) {
-
-        } 
+        }
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
