@@ -1,6 +1,5 @@
 package cristina.asensio.mybudget.home;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,14 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cristina.asensio.mybudget.R;
 import cristina.asensio.mybudget.adapter.ExpenseListAdapter;
-import cristina.asensio.mybudget.database.Expense;
 import cristina.asensio.mybudget.database.ExpenseViewModel;
 
 public class ExpensesListFragment extends Fragment {
@@ -38,7 +34,6 @@ public class ExpensesListFragment extends Fragment {
     TextView totalBudgetTextView;
 
     private Unbinder unbinder;
-    private ExpenseViewModel mExpenseViewModel;
 
     @Nullable
     @Override
@@ -49,13 +44,8 @@ public class ExpensesListFragment extends Fragment {
         listView.setAdapter(adapter);
         listView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        mExpenseViewModel = ViewModelProviders.of(getActivity()).get(ExpenseViewModel.class);
-        mExpenseViewModel.getAllExpenses().observe(getActivity(), new Observer<List<Expense>>() {
-            @Override
-            public void onChanged(@Nullable List<Expense> expenses) {
-                adapter.setExpenses(expenses);
-            }
-        });
+        ExpenseViewModel mExpenseViewModel = ViewModelProviders.of(getActivity()).get(ExpenseViewModel.class);
+        mExpenseViewModel.getAllExpenses().observe(getActivity(), adapter::setExpenses);
         return view;
     }
 
