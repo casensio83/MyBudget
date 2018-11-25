@@ -13,7 +13,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import cristina.asensio.mybudget.R;
 import cristina.asensio.mybudget.database.Expense;
 
@@ -67,7 +66,7 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.
         void bind(Expense expense) {
             this.expense = expense;
             expenseTitleTextView.setText(expense.getTitle());
-            expenseAmountTextView.setText(String.valueOf(expense.getAmount()));
+            expenseAmountTextView.setText(String.valueOf(expense.getAmount()) + " €");
         }
     }
 }
