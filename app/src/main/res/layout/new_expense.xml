@@ -8,27 +8,27 @@
         android:id="@+id/new_expense_title_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="@string/new_expense_title_hint"/>
+        android:hint="@string/new_expense_title_hint"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/new_expense_description_edittext"
-        android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/new_expense_description_hint"/>
+        android:hint="@string/new_expense_description_hint"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/new_expense_amount_edittext"
-        android:inputType="numberDecimal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/new_expense_amount_hint"/>
+        android:hint="@string/new_expense_amount_hint"
+        android:inputType="numberDecimal" />
 
     <Button
         android:id="@+id/save_expense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/save_expense"/>
+        android:text="@string/save_expense" />
 
 </LinearLayout>
