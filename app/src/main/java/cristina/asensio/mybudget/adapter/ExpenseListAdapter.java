@@ -51,8 +51,11 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.
 
     class ExpenseViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.textView)
-        TextView expenseItemView;
+        @BindView(R.id.title_textView)
+        TextView expenseTitleTextView;
+
+        @BindView(R.id.amount_textView)
+        TextView expenseAmountTextView;
 
         private Expense expense;
 
@@ -63,7 +66,8 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.
 
         void bind(Expense expense) {
             this.expense = expense;
-            expenseItemView.setText(expense.getTitle());
+            expenseTitleTextView.setText(expense.getTitle());
+            expenseAmountTextView.setText(String.valueOf(expense.getAmount()));
         }
     }
 }
