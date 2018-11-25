@@ -7,4 +7,5 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="zero_dp">0dp</dimen>
     <dimen name="five_dp">5dp</dimen>
+    <dimen name="tota_budget_text_size">34sp</dimen>
 </resources>

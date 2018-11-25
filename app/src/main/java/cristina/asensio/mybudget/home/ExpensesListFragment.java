@@ -24,12 +24,6 @@ public class ExpensesListFragment extends Fragment {
     @BindView(R.id.recycler_view)
     RecyclerView listView;
 
-    @BindView(R.id.tv_error)
-    TextView errorTextView;
-
-    @BindView(R.id.loading_view)
-    View loadingView;
-
     @BindView(R.id.tv_total_budget)
     TextView totalBudgetTextView;
 
@@ -40,13 +34,17 @@ public class ExpensesListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.screen_list, container, false);
         unbinder = ButterKnife.bind(this, view);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         final ExpenseListAdapter adapter = new ExpenseListAdapter(getActivity());
         listView.setAdapter(adapter);
         listView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         ExpenseViewModel mExpenseViewModel = ViewModelProviders.of(getActivity()).get(ExpenseViewModel.class);
         mExpenseViewModel.getAllExpenses().observe(getActivity(), adapter::setExpenses);
-        return view;
     }
 
     @Override

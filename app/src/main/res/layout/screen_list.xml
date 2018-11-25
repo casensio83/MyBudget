@@ -10,23 +10,12 @@
         android:paddingTop="70dp"/>
 
     <TextView
-        android:id="@+id/tv_error"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <ProgressBar
-        android:id="@+id/loading_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
-
-    <TextView
         android:id="@+id/tv_total_budget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="600"
+        android:text="@string/total_budget_amount_hint"
         android:textStyle="bold"
-        android:textSize="34dp"
+        android:textSize="@dimen/tota_budget_text_size"
         android:textColor="@android:color/black"
         android:layout_gravity="center_horizontal"/>
 
