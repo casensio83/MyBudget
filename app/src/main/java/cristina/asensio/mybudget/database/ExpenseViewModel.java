@@ -23,7 +23,7 @@ public class ExpenseViewModel extends AndroidViewModel {
         return mAllExpenses;
     }
 
-    void insert(Expense expense) {
+    public void insert(Expense expense) {
         mRepository.insert(expense);
     }
 }

@@ -44,14 +44,18 @@ public class MainActivity extends AppCompatActivity
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.screen_container, new ExpensesListFragment())
+                    .replace(R.id.screen_container, new ExpensesListFragment())
+                    .addToBackStack(null)
                     .commit();
 
         }
 
-        fab.setOnClickListener(view -> {
-
-        });
+        fab.setOnClickListener(view ->
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.screen_container, new NewExpenseFragment())
+                    .addToBackStack(null)
+                    .commit()
+        );
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

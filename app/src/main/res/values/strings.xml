@@ -10,4 +10,8 @@
     <string name="expense_amount">7.5</string>
     <string name="coin">€</string>
     <string name="total_budget_amount_hint">600</string>
+    <string name="new_expense_title_hint">New expense title</string>
+    <string name="new_expense_description_hint">New expense description</string>
+    <string name="new_expense_amount_hint">New expense Amount</string>
+    <string name="save_expense">Save Expense</string>
 </resources>

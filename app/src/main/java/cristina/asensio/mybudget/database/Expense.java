@@ -17,7 +17,7 @@ public class Expense {
 
     @NonNull
     @ColumnInfo(name = "amount")
-    private double mAmount;
+    private String mAmount;
 
     @NonNull
     @ColumnInfo(name = "title")
@@ -27,7 +27,7 @@ public class Expense {
     @ColumnInfo(name = "description")
     private String mDescription;
 
-    public Expense(@NonNull String mDate, @NonNull double mAmount, @NonNull String mTitle, @NonNull String mDescription) {
+    public Expense(@NonNull String mDate, @NonNull String mAmount, @NonNull String mTitle, @NonNull String mDescription) {
         this.mDate = mDate;
         this.mAmount = mAmount;
         this.mTitle = mTitle;
@@ -48,7 +48,7 @@ public class Expense {
     }
 
     @NonNull
-    public double getAmount() {
+    public String getAmount() {
         return mAmount;
     }
 

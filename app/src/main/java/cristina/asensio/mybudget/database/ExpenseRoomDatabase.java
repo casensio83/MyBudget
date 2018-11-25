@@ -51,7 +51,7 @@ public abstract class ExpenseRoomDatabase extends RoomDatabase{
         protected Void doInBackground(Void... params) {
             mDao.deleteAll();
 
-            Expense expense = new Expense("24/11/2018",7.5, "cine", "");
+            Expense expense = new Expense("24/11/2018","7.5", "cine", "");
             mDao.insert(expense);
 
             return null;
