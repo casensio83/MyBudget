@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/five_dp"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:padding="@dimen/five_dp">
 
     <TextView
         android:id="@+id/title_textView"
@@ -18,7 +18,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
-        android:gravity="right"
+        android:gravity="end"
         android:text="@string/expense_amount" />
+
+    <ImageView
+        android:id="@+id/remove_expense_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/five_dp"
+        android:contentDescription="@string/delete_icon_content_description"
+        android:background="@drawable/ic_remove_expense" />
 
 </LinearLayout>

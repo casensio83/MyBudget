@@ -2,6 +2,7 @@ package cristina.asensio.mybudget.database;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
@@ -18,5 +19,8 @@ public interface ExpenseDao {
 
     @Query("DELETE FROM expense_table")
     void deleteAll();
+
+    @Delete
+    void delete(Expense expense);
 
 }

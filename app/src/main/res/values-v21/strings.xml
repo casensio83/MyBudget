@@ -6,4 +6,5 @@
     <string name="new_expense_description_hint">New expense description</string>
     <string name="new_expense_amount_hint">New expense Amount</string>
     <string name="save_expense">Save Expense</string>
+    <string name="delete_icon_content_description">remove icon</string>
 </resources>

@@ -13,6 +13,7 @@ public class ExpenseViewModel extends AndroidViewModel {
 
     private LiveData<List<Expense>> mAllExpenses;
 
+
     public ExpenseViewModel(@NonNull Application application) {
         super(application);
         mRepository = new ExpenseRepository(application);
@@ -25,5 +26,9 @@ public class ExpenseViewModel extends AndroidViewModel {
 
     public void insert(Expense expense) {
         mRepository.insert(expense);
+    }
+
+    public void delete(Expense expense) {
+        mRepository.delete(expense);
     }
 }
