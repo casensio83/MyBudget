@@ -101,7 +101,11 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_create_category) {
 
         } else if (id == R.id.nav_Settings) {
-
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.screen_container, new PreferencesFragment())
+                    .addToBackStack(null)
+                    .commit();
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);

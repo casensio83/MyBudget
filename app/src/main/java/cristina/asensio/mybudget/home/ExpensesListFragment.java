@@ -18,6 +18,7 @@ import butterknife.Unbinder;
 import cristina.asensio.mybudget.R;
 import cristina.asensio.mybudget.adapter.ExpenseListAdapter;
 import cristina.asensio.mybudget.database.ExpenseViewModel;
+import cristina.asensio.mybudget.preferences.PreferencesViewModel;
 
 public class ExpensesListFragment extends Fragment {
 
@@ -45,6 +46,14 @@ public class ExpensesListFragment extends Fragment {
 
         ExpenseViewModel mExpenseViewModel = ViewModelProviders.of(getActivity()).get(ExpenseViewModel.class);
         mExpenseViewModel.getAllExpenses().observe(getActivity(), adapter::setExpenses);
+    }
+    
+    @Override
+    public void onResume() {
+        super.onResume();
+        PreferencesViewModel preferencesViewModel = ViewModelProviders.of(getActivity()).get(PreferencesViewModel.class);
+        String maxAmount = preferencesViewModel.getMaxAmount();
+        totalBudgetTextView.setText(maxAmount);
     }
 
     @Override
