@@ -15,4 +15,7 @@
     <string name="new_expense_amount_hint">New expense Amount</string>
     <string name="save_expense">Save Expense</string>
     <string name="delete_icon_content_description">remove icon</string>
+    <string name="preferences_max_amount">Max Amount To Expend</string>
+    <string name="save_preferences">Save</string>
+    <string name="max_amount_hint">500</string>
 </resources>
