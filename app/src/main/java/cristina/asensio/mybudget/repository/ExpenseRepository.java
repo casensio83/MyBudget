@@ -1,10 +1,14 @@
-package cristina.asensio.mybudget.database;
+package cristina.asensio.mybudget.repository;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 
 import java.util.List;
+
+import cristina.asensio.mybudget.database.Expense;
+import cristina.asensio.mybudget.database.ExpenseDao;
+import cristina.asensio.mybudget.database.ExpenseRoomDatabase;
 
 public class ExpenseRepository {
 
@@ -17,15 +21,15 @@ public class ExpenseRepository {
         mAllExpenses = mExpenseDao.getAlphabetizedExpenses();
     }
 
-    LiveData<List<Expense>> getAllExpenses() {
+    public LiveData<List<Expense>> getAllExpenses() {
         return mAllExpenses;
     }
 
-    void insert(Expense expense) {
+    public void insert(Expense expense) {
         new insertAsyncTask(mExpenseDao).execute(expense);
     }
 
-    void delete(Expense expense) {
+    public void delete(Expense expense) {
         new deleteAsyncTask(mExpenseDao).execute(expense);
     }
 
