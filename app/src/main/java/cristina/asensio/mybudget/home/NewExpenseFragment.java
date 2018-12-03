@@ -16,7 +16,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cristina.asensio.mybudget.R;
 import cristina.asensio.mybudget.database.Expense;
-import cristina.asensio.mybudget.database.ExpenseViewModel;
+import cristina.asensio.mybudget.viewmodel.ExpenseViewModel;
 
 public class NewExpenseFragment extends Fragment {
 
