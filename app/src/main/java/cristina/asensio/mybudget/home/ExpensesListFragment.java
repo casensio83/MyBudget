@@ -12,13 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cristina.asensio.mybudget.R;
 import cristina.asensio.mybudget.adapter.ExpenseListAdapter;
-import cristina.asensio.mybudget.database.ExpenseViewModel;
-import cristina.asensio.mybudget.preferences.PreferencesViewModel;
+import cristina.asensio.mybudget.database.Expense;
+import cristina.asensio.mybudget.viewmodel.ExpenseViewModel;
+import cristina.asensio.mybudget.viewmodel.PreferencesViewModel;
 
 public class ExpensesListFragment extends Fragment {
 
@@ -29,6 +32,7 @@ public class ExpensesListFragment extends Fragment {
     TextView totalBudgetTextView;
 
     private Unbinder unbinder;
+    private ExpenseViewModel mExpenseViewModel;
 
     @Nullable
     @Override
@@ -44,16 +48,31 @@ public class ExpensesListFragment extends Fragment {
         listView.setAdapter(adapter);
         listView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        ExpenseViewModel mExpenseViewModel = ViewModelProviders.of(getActivity()).get(ExpenseViewModel.class);
+        mExpenseViewModel = ViewModelProviders.of(getActivity()).get(ExpenseViewModel.class);
         mExpenseViewModel.getAllExpenses().observe(getActivity(), adapter::setExpenses);
     }
-    
+
     @Override
     public void onResume() {
         super.onResume();
         PreferencesViewModel preferencesViewModel = ViewModelProviders.of(getActivity()).get(PreferencesViewModel.class);
         String maxAmount = preferencesViewModel.getMaxAmount();
-        totalBudgetTextView.setText(maxAmount);
+        totalBudgetTextView.setText(getMaxAvailable(maxAmount));
+    }
+
+    // TODO move this to some viewmodel
+    // TODO check why only counts expenses.size - 1
+    private String getMaxAvailable(String maxAmountInPreferences) {
+        double maxAmountPrefs = Double.parseDouble(maxAmountInPreferences);
+        List<Expense> expenses = mExpenseViewModel.getAllExpenses().getValue();
+
+        if(expenses != null) {
+            for(Expense expense : expenses) {
+                maxAmountPrefs -= Double.parseDouble(expense.getAmount());
+            }
+        }
+
+        return String.valueOf(maxAmountPrefs);
     }
 
     @Override
