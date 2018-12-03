@@ -1,4 +1,4 @@
-package cristina.asensio.mybudget.database;
+package cristina.asensio.mybudget.viewmodel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
@@ -6,6 +6,9 @@ import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
 import java.util.List;
+
+import cristina.asensio.mybudget.database.Expense;
+import cristina.asensio.mybudget.repository.ExpenseRepository;
 
 public class ExpenseViewModel extends AndroidViewModel {
 
