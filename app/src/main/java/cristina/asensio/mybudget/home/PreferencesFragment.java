@@ -15,7 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cristina.asensio.mybudget.R;
-import cristina.asensio.mybudget.preferences.PreferencesViewModel;
+import cristina.asensio.mybudget.viewmodel.PreferencesViewModel;
 
 public class PreferencesFragment extends Fragment implements View.OnClickListener {
 
