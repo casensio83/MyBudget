@@ -51,10 +51,10 @@ public class MainActivity extends AppCompatActivity
         }
 
         fab.setOnClickListener(view ->
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.screen_container, new NewExpenseFragment())
-                    .addToBackStack(null)
-                    .commit()
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.screen_container, new NewExpenseFragment())
+                        .addToBackStack(null)
+                        .commit()
         );
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -94,18 +94,20 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_current_month_report) {
-
-        } else if (id == R.id.nav_anual_report) {
-
-        } else if (id == R.id.nav_create_category) {
-
-        } else if (id == R.id.nav_Settings) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.screen_container, new PreferencesFragment())
-                    .addToBackStack(null)
-                    .commit();
+        switch (id) {
+            case R.id.nav_current_month_report:
+            case R.id.nav_anual_report:
+            case R.id.nav_create_category:
+                break;
+            case R.id.nav_Settings:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.screen_container, new PreferencesFragment())
+                        .addToBackStack(null)
+                        .commit();
+                break;
+            default:
+                break;
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
