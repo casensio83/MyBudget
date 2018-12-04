@@ -20,6 +20,7 @@ import butterknife.Unbinder;
 import cristina.asensio.mybudget.R;
 import cristina.asensio.mybudget.adapter.ExpenseListAdapter;
 import cristina.asensio.mybudget.database.Expense;
+import cristina.asensio.mybudget.util.ExpensesUtil;
 import cristina.asensio.mybudget.viewmodel.ExpenseViewModel;
 import cristina.asensio.mybudget.viewmodel.PreferencesViewModel;
 
@@ -57,22 +58,8 @@ public class ExpensesListFragment extends Fragment {
         super.onResume();
         PreferencesViewModel preferencesViewModel = ViewModelProviders.of(getActivity()).get(PreferencesViewModel.class);
         String maxAmount = preferencesViewModel.getMaxAmount();
-        totalBudgetTextView.setText(getMaxAvailable(maxAmount));
-    }
-
-    // TODO move this to some viewmodel
-    // TODO check why only counts expenses.size - 1
-    private String getMaxAvailable(String maxAmountInPreferences) {
-        double maxAmountPrefs = Double.parseDouble(maxAmountInPreferences);
         List<Expense> expenses = mExpenseViewModel.getAllExpenses().getValue();
-
-        if(expenses != null) {
-            for(Expense expense : expenses) {
-                maxAmountPrefs -= Double.parseDouble(expense.getAmount());
-            }
-        }
-
-        return String.valueOf(maxAmountPrefs);
+        totalBudgetTextView.setText(ExpensesUtil.getMaxAvailable(maxAmount, expenses));
     }
 
     @Override

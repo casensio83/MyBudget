@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -60,7 +62,7 @@ public class NewExpenseFragment extends Fragment {
 
     private void saveNewExpense() {
         Expense expense = new Expense(
-                "1/12/2018",
+                new Date().toString(),
                 newExpenseAmountEdittext.getText().toString(),
                 newExpenseTitleEdittext.getText().toString(),
                 newExpenseDescriptionEdittext.getText().toString());

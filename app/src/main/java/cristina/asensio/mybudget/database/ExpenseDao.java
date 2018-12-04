@@ -14,6 +14,7 @@ public interface ExpenseDao {
     @Query("SELECT * from expense_table")
     LiveData<List<Expense>> getAlphabetizedExpenses();
 
+    //TODO check why when closing app the data is not saved
     @Insert
     void insert(Expense expense);
 

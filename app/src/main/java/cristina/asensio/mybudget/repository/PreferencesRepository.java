@@ -8,9 +8,11 @@ public class PreferencesRepository {
     private static final String PREFERENCES_DEFAULT_MAX_AMOUNT = "200";
 
     private SharedPreferences mSharedPreferences;
+    SharedPreferences.Editor editor;
 
     public PreferencesRepository(SharedPreferences sharedPreferences) {
         this.mSharedPreferences = sharedPreferences;
+        editor = mSharedPreferences.edit();
     }
 
     public String getMaxAmount() {
@@ -18,7 +20,6 @@ public class PreferencesRepository {
     }
 
     public void setMaxAmount(String maxAmount) {
-        SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putString(PREFERENCES_MAX_AMOUNT, maxAmount);
         editor.apply();
     }

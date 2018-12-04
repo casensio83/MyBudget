@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         unbinder = ButterKnife.bind(this);
         setSupportActionBar(toolbar);
@@ -47,7 +48,6 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.screen_container, new ExpensesListFragment())
                     .addToBackStack(null)
                     .commit();
-
         }
 
         fab.setOnClickListener(view ->
