@@ -9,16 +9,16 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
 @Database(entities = {Expense.class}, version = 1)
-public abstract class ExpenseRoomDatabase extends RoomDatabase{
+public abstract class ExpenseRoomDatabase extends RoomDatabase {
 
     public abstract ExpenseDao expenseDao();
 
     private static volatile ExpenseRoomDatabase INSTANCE;
 
     public static ExpenseRoomDatabase getDatabase(final Context context) {
-        if(INSTANCE == null) {
+        if (INSTANCE == null) {
             synchronized (ExpenseRoomDatabase.class) {
-                if(INSTANCE == null) {
+                if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             ExpenseRoomDatabase.class, "expense_database")
                             .fallbackToDestructiveMigration()
@@ -33,8 +33,8 @@ public abstract class ExpenseRoomDatabase extends RoomDatabase{
     private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
 
         @Override
-        public void onOpen(@NonNull SupportSQLiteDatabase db) {
-            super.onOpen(db);
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
             new PopulateDbAsync(INSTANCE).execute();
         }
     };
@@ -51,7 +51,7 @@ public abstract class ExpenseRoomDatabase extends RoomDatabase{
         protected Void doInBackground(Void... params) {
             mDao.deleteAll();
 
-            Expense expense = new Expense("24/11/2018","7.5", "cine", "");
+            Expense expense = new Expense("24/11/2018", "7.5", "cine", "");
             mDao.insert(expense);
 
             return null;
