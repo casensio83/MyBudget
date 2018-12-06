@@ -1,22 +1,27 @@
 package cristina.asensio.mybudget.util;
 
-import java.util.List;
+import android.arch.lifecycle.LifecycleOwner;
+import android.widget.TextView;
 
 import cristina.asensio.mybudget.database.Expense;
+import cristina.asensio.mybudget.viewmodel.ExpenseViewModel;
 
 public class ExpensesUtil {
 
-    // TODO check why only counts expenses.size - 1
-    public static String getMaxAvailable(String maxAmountInPreferences, List<Expense> expenses) {
-        double maxAmountPrefs = Double.parseDouble(maxAmountInPreferences);
+    private static double maxAmount;
 
-        if(expenses != null) {
-            for(Expense expense : expenses) {
-                maxAmountPrefs -= Double.parseDouble(expense.getAmount());
+    public static void updateTotalAvailable(LifecycleOwner activity, ExpenseViewModel mExpenseViewModel, TextView totalBudgetTextView, double maxAmountAvailable) {
+        maxAmount = maxAmountAvailable;
+        mExpenseViewModel.getAllExpenses().observe(activity, expenses -> {
+            for (Expense expense : expenses) {
+                maxAmount -= Double.parseDouble(expense.getAmount());
             }
-        }
+            if (totalBudgetTextView != null) {
+                totalBudgetTextView.setText(String.valueOf(maxAmount));
+            }
+        });
 
-        return String.valueOf(maxAmountPrefs);
+        totalBudgetTextView.setText(String.valueOf(maxAmount));
     }
 
 }

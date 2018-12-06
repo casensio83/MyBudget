@@ -13,14 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cristina.asensio.mybudget.R;
 import cristina.asensio.mybudget.adapter.ExpenseListAdapter;
-import cristina.asensio.mybudget.database.Expense;
 import cristina.asensio.mybudget.util.ExpensesUtil;
 import cristina.asensio.mybudget.viewmodel.ExpenseViewModel;
 import cristina.asensio.mybudget.viewmodel.PreferencesViewModel;
@@ -36,6 +33,7 @@ public class ExpensesListFragment extends Fragment {
     private Unbinder unbinder;
     private ExpenseViewModel mExpenseViewModel;
     private PreferencesViewModel mPreferencesViewModel;
+    private double maxAmountAvailable;
 
     @Nullable
     @Override
@@ -68,8 +66,8 @@ public class ExpensesListFragment extends Fragment {
         super.onResume();
         mPreferencesViewModel = ViewModelProviders.of(getActivity()).get(PreferencesViewModel.class);
         String maxAmount = mPreferencesViewModel.getMaxAmount();
-        List<Expense> expenses = mExpenseViewModel.getAllExpenses().getValue();
-        totalBudgetTextView.setText(ExpensesUtil.getMaxAvailable(maxAmount, expenses));
+        maxAmountAvailable = Double.parseDouble(maxAmount);
+        ExpensesUtil.updateTotalAvailable(getActivity(), mExpenseViewModel, totalBudgetTextView, maxAmountAvailable);
     }
 
     @Override

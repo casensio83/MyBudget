@@ -37,16 +37,14 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.
     @Override
     public ExpenseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.recyclerview_item, parent, false);
+        mExpenseViewModel = ViewModelProviders.of((FragmentActivity) mContext).get(ExpenseViewModel.class);
         return new ExpenseViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ExpenseViewHolder holder, int position) {
         holder.bind(mExpenses.get(position));
-        holder.removeExpenseButton.setOnClickListener(view -> {
-            mExpenseViewModel = ViewModelProviders.of((FragmentActivity) mContext).get(ExpenseViewModel.class);
-            mExpenseViewModel.delete(mExpenses.get(position));
-        });
+        holder.removeExpenseButton.setOnClickListener(view -> mExpenseViewModel.delete(mExpenses.get(position)));
     }
 
     @Override
