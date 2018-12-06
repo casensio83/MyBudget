@@ -63,6 +63,10 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
     }
 
+    public FloatingActionButton getFloatingActionButton() {
+        return fab;
+    }
+
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
