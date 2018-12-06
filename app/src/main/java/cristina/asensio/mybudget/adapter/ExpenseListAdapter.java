@@ -25,6 +25,7 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.
     private final LayoutInflater mInflater;
     private List<Expense> mExpenses = Collections.emptyList();
     private Context mContext;
+    private ExpenseViewModel mExpenseViewModel;
 
     public ExpenseListAdapter(Context context) {
         mContext = context;
@@ -43,7 +44,7 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.
     public void onBindViewHolder(@NonNull ExpenseViewHolder holder, int position) {
         holder.bind(mExpenses.get(position));
         holder.removeExpenseButton.setOnClickListener(view -> {
-            ExpenseViewModel mExpenseViewModel = ViewModelProviders.of((FragmentActivity) mContext).get(ExpenseViewModel.class);
+            mExpenseViewModel = ViewModelProviders.of((FragmentActivity) mContext).get(ExpenseViewModel.class);
             mExpenseViewModel.delete(mExpenses.get(position));
         });
     }
@@ -69,15 +70,12 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.
         @BindView(R.id.remove_expense_button)
         ImageView removeExpenseButton;
 
-        private Expense expense;
-
         private ExpenseViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
         void bind(Expense expense) {
-            this.expense = expense;
             expenseTitleTextView.setText(expense.getTitle());
             expenseAmountTextView.setText(String.format(expense.getAmount() , " €"));
         }

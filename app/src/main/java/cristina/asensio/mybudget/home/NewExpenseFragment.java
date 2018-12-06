@@ -35,6 +35,7 @@ public class NewExpenseFragment extends Fragment {
     Button saveNewExpenseButton;
 
     private Unbinder unbinder;
+    private ExpenseViewModel mExpenseViewModel;
 
     @Nullable
     @Override
@@ -66,7 +67,7 @@ public class NewExpenseFragment extends Fragment {
                 newExpenseAmountEdittext.getText().toString(),
                 newExpenseTitleEdittext.getText().toString(),
                 newExpenseDescriptionEdittext.getText().toString());
-        ExpenseViewModel mExpenseViewModel = ViewModelProviders.of(getActivity()).get(ExpenseViewModel.class);
+        mExpenseViewModel = ViewModelProviders.of(getActivity()).get(ExpenseViewModel.class);
         mExpenseViewModel.insert(expense);
     }
 
