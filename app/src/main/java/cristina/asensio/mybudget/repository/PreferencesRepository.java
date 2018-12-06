@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 public class PreferencesRepository {
 
     private static final String PREFERENCES_MAX_AMOUNT = "maxAmount";
-    private static final String PREFERENCES_DEFAULT_MAX_AMOUNT = "200";
+    private static final String PREFERENCES_DEFAULT_MAX_AMOUNT = "500";
 
     private SharedPreferences mSharedPreferences;
     SharedPreferences.Editor editor;
