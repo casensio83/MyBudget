@@ -33,7 +33,6 @@ public class ExpensesListFragment extends Fragment {
     private Unbinder unbinder;
     private ExpenseViewModel mExpenseViewModel;
     private PreferencesViewModel mPreferencesViewModel;
-    private double maxAmountAvailable;
 
     @Nullable
     @Override
@@ -65,9 +64,7 @@ public class ExpensesListFragment extends Fragment {
     public void onResume() {
         super.onResume();
         mPreferencesViewModel = ViewModelProviders.of(getActivity()).get(PreferencesViewModel.class);
-        String maxAmount = mPreferencesViewModel.getMaxAmount();
-        maxAmountAvailable = Double.parseDouble(maxAmount);
-        ExpensesUtil.updateTotalAvailable(getActivity(), mExpenseViewModel, totalBudgetTextView, maxAmountAvailable);
+        totalBudgetTextView.setText(mPreferencesViewModel.getTotalAvailableDisplayed());
     }
 
     @Override

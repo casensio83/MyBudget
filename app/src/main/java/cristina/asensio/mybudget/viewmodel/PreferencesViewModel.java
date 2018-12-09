@@ -29,4 +29,12 @@ public class PreferencesViewModel extends AndroidViewModel {
         mPreferencesRepository.setMaxAmount(maxAmount);
     }
 
+    public void setTotalAvailableDisplayed(String totalAvailableDisplayed) {
+        mPreferencesRepository.setTotalAvailableDisplayed(totalAvailableDisplayed);
+    }
+
+    public String getTotalAvailableDisplayed() {
+        return mPreferencesRepository.getTotalAvailableDisplayed();
+    }
+
 }
