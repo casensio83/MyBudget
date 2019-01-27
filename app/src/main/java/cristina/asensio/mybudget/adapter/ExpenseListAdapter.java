@@ -18,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cristina.asensio.mybudget.R;
 import cristina.asensio.mybudget.database.Expense;
+import cristina.asensio.mybudget.manager.TotalAvailableManager;
 import cristina.asensio.mybudget.viewmodel.ExpenseViewModel;
 
 public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.ExpenseViewHolder> {
@@ -26,12 +27,13 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.
     private List<Expense> mExpenses = Collections.emptyList();
     private Context mContext;
     private ExpenseViewModel mExpenseViewModel;
+    private TextView mTotalAvailableTextView;
 
-    public ExpenseListAdapter(Context context) {
+    public ExpenseListAdapter(Context context, TextView totalBudgetTextView) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
+        mTotalAvailableTextView = totalBudgetTextView;
     }
-
 
     @NonNull
     @Override
@@ -44,7 +46,13 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.
     @Override
     public void onBindViewHolder(@NonNull ExpenseViewHolder holder, int position) {
         holder.bind(mExpenses.get(position));
-        holder.removeExpenseButton.setOnClickListener(view -> mExpenseViewModel.delete(mExpenses.get(position)));
+        holder.removeExpenseButton.setOnClickListener(view -> {
+                    mExpenseViewModel.delete(mExpenses.get(position));
+                    final double currentTotalAvailable = Double.parseDouble(mTotalAvailableTextView.getText().toString());
+                    final String updatedTotalAvailable = TotalAvailableManager.getUpdatedTotalAvailable(mExpenses, currentTotalAvailable, position);
+                    mTotalAvailableTextView.setText(updatedTotalAvailable);
+                }
+        );
     }
 
     @Override
@@ -75,7 +83,7 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.
 
         void bind(Expense expense) {
             expenseTitleTextView.setText(expense.getTitle());
-            expenseAmountTextView.setText(String.format(expense.getAmount() , " €"));
+            expenseAmountTextView.setText(String.format(expense.getAmount(), " €"));
         }
     }
 }

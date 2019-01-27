@@ -1,6 +1,7 @@
 package cristina.asensio.mybudget.home;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,6 +23,10 @@ import cristina.asensio.mybudget.viewmodel.ExpenseViewModel;
 
 public class NewExpenseFragment extends Fragment {
 
+    private final String TOTAL_AVAILABLE_KEY = "total_available";
+    private final String PREFERENCES_KEY = "my_budget_preferences";
+    private final int PRIVATE_MODE = 0;
+
     @BindView(R.id.new_expense_title_edittext)
     EditText newExpenseTitleEdittext;
 
@@ -36,6 +41,7 @@ public class NewExpenseFragment extends Fragment {
 
     private Unbinder unbinder;
     private ExpenseViewModel mExpenseViewModel;
+    private SharedPreferences mSharedPreferences;
 
     @Nullable
     @Override
@@ -55,14 +61,25 @@ public class NewExpenseFragment extends Fragment {
     }
 
     private void goBackToExpensesList() {
+        saveNewMaxAmountAvailableToSpend();
+
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.screen_container, new ExpensesListFragment())
                 .addToBackStack(null)
                 .commit();
     }
 
+    private void saveNewMaxAmountAvailableToSpend() {
+        mSharedPreferences = getActivity().getSharedPreferences(PREFERENCES_KEY, PRIVATE_MODE);
+        float maxAmountToSpend = mSharedPreferences.getFloat(TOTAL_AVAILABLE_KEY, 0);
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        float newAmount = maxAmountToSpend - Float.parseFloat(newExpenseAmountEdittext.getText().toString());
+        editor.putFloat(TOTAL_AVAILABLE_KEY,  newAmount);
+        editor.commit();
+    }
+
     private void saveNewExpense() {
-        Expense expense = new Expense(
+        final Expense expense = new Expense(
                 new Date().toString(),
                 newExpenseAmountEdittext.getText().toString(),
                 newExpenseTitleEdittext.getText().toString(),

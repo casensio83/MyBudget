@@ -12,9 +12,8 @@ import java.util.List;
 public interface ExpenseDao {
 
     @Query("SELECT * from expense_table")
-    LiveData<List<Expense>> getAlphabetizedExpenses();
+    LiveData<List<Expense>> getExpenses();
 
-    //TODO check why when closing app the data is not saved
     @Insert
     void insert(Expense expense);
 

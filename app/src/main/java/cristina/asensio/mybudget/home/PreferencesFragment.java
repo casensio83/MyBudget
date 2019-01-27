@@ -1,6 +1,5 @@
 package cristina.asensio.mybudget.home;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,7 +14,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cristina.asensio.mybudget.R;
-import cristina.asensio.mybudget.viewmodel.PreferencesViewModel;
 
 public class PreferencesFragment extends Fragment implements View.OnClickListener {
 
@@ -26,7 +24,6 @@ public class PreferencesFragment extends Fragment implements View.OnClickListene
     Button savePreferencesButton;
 
     private Unbinder unbinder;
-    PreferencesViewModel preferencesViewModel;
 
     @Nullable
     @Override
@@ -34,7 +31,6 @@ public class PreferencesFragment extends Fragment implements View.OnClickListene
         View view = inflater.inflate(R.layout.preferences, container, false);
         unbinder = ButterKnife.bind(this, view);
         savePreferencesButton.setOnClickListener(this);
-        preferencesViewModel = ViewModelProviders.of(getActivity()).get(PreferencesViewModel.class);
         return view;
     }
 
@@ -50,7 +46,6 @@ public class PreferencesFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        preferencesViewModel.setMaxAmount(preferencesMaxAmountEditText.getText().toString());
         goBackToExpensesList();
     }
 

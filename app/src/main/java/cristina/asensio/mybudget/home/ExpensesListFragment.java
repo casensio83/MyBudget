@@ -1,6 +1,8 @@
 package cristina.asensio.mybudget.home;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,11 +20,13 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cristina.asensio.mybudget.R;
 import cristina.asensio.mybudget.adapter.ExpenseListAdapter;
-import cristina.asensio.mybudget.util.ExpensesUtil;
 import cristina.asensio.mybudget.viewmodel.ExpenseViewModel;
-import cristina.asensio.mybudget.viewmodel.PreferencesViewModel;
 
 public class ExpensesListFragment extends Fragment {
+
+    private final String TOTAL_AVAILABLE_KEY = "total_available";
+    private final String PREFERENCES_KEY = "my_budget_preferences";
+    private final int PRIVATE_MODE = 0;
 
     @BindView(R.id.recycler_view)
     RecyclerView listView;
@@ -32,7 +36,8 @@ public class ExpensesListFragment extends Fragment {
 
     private Unbinder unbinder;
     private ExpenseViewModel mExpenseViewModel;
-    private PreferencesViewModel mPreferencesViewModel;
+    private SharedPreferences mSharedPreferences;
+    private float total;
 
     @Nullable
     @Override
@@ -40,31 +45,46 @@ public class ExpensesListFragment extends Fragment {
         View view = inflater.inflate(R.layout.screen_list, container, false);
         unbinder = ButterKnife.bind(this, view);
 
+        mSharedPreferences = getActivity().getSharedPreferences(PREFERENCES_KEY, PRIVATE_MODE);
+        float maxAmountToSpend = mSharedPreferences.getFloat(TOTAL_AVAILABLE_KEY, 0);
+
+        if(maxAmountToSpend == 0) {
+            Editor editor = mSharedPreferences.edit();
+            editor.putFloat(TOTAL_AVAILABLE_KEY, 600);
+            editor.commit();
+            total = 600;
+        } else{
+            total = maxAmountToSpend;
+        }
+
         showFloatingActionButton();
 
         return view;
     }
 
     private void showFloatingActionButton() {
-        FloatingActionButton fab = ((MainActivity) getActivity()).getFloatingActionButton();
+        final FloatingActionButton fab = ((MainActivity) getActivity()).getFloatingActionButton();
         fab.show();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        final ExpenseListAdapter adapter = new ExpenseListAdapter(getActivity());
+        final ExpenseListAdapter adapter = new ExpenseListAdapter(getActivity(), totalBudgetTextView);
         listView.setAdapter(adapter);
         listView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         mExpenseViewModel = ViewModelProviders.of(getActivity()).get(ExpenseViewModel.class);
         mExpenseViewModel.getAllExpenses().observe(getActivity(), adapter::setExpenses);
+        totalBudgetTextView.setText(String.valueOf(total));
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mPreferencesViewModel = ViewModelProviders.of(getActivity()).get(PreferencesViewModel.class);
-        totalBudgetTextView.setText(mPreferencesViewModel.getTotalAvailableDisplayed());
+        if (totalBudgetTextView != null) {
+            total = mSharedPreferences.getFloat(TOTAL_AVAILABLE_KEY, 0);
+            totalBudgetTextView.setText(String.valueOf(total));
+        }
     }
 
     @Override
@@ -74,7 +94,7 @@ public class ExpensesListFragment extends Fragment {
     }
 
     private void hideFloatingActionButton() {
-        FloatingActionButton fab = ((MainActivity) getActivity()).getFloatingActionButton();
+        final FloatingActionButton fab = ((MainActivity) getActivity()).getFloatingActionButton();
         fab.hide();
     }
 
