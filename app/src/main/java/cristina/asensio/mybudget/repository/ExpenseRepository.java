@@ -18,7 +18,7 @@ public class ExpenseRepository {
     public ExpenseRepository(Application application) {
         ExpenseRoomDatabase db = ExpenseRoomDatabase.getDatabase(application);
         this.mExpenseDao = db.expenseDao();
-        mAllExpenses = mExpenseDao.getAlphabetizedExpenses();
+        mAllExpenses = mExpenseDao.getExpenses();
     }
 
     public LiveData<List<Expense>> getAllExpenses() {

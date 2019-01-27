@@ -42,19 +42,19 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         navigationView.setNavigationItemSelectedListener(this);
 
-
         if (savedInstanceState == null) {
+            final ExpensesListFragment expensesListFragment = new ExpensesListFragment();
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.screen_container, new ExpensesListFragment())
+                    .replace(R.id.screen_container, expensesListFragment)
                     .addToBackStack(null)
                     .commit();
         }
 
         fab.setOnClickListener(view ->
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.screen_container, new NewExpenseFragment())
-                        .addToBackStack(null)
-                        .commit()
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.screen_container, new NewExpenseFragment())
+                    .addToBackStack(null)
+                    .commit()
         );
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
