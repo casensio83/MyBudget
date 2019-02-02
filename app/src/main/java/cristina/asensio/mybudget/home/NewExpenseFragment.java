@@ -1,6 +1,7 @@
 package cristina.asensio.mybudget.home;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -57,7 +59,15 @@ public class NewExpenseFragment extends Fragment {
         saveNewExpenseButton.setOnClickListener(view1 -> {
             saveNewExpense();
             goBackToExpensesList();
+            hideSoftInput();
         });
+    }
+
+    private void hideSoftInput() {
+        final InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(
+                getActivity().getCurrentFocus().getWindowToken(),
+                InputMethodManager.RESULT_UNCHANGED_SHOWN);
     }
 
     private void goBackToExpensesList() {
