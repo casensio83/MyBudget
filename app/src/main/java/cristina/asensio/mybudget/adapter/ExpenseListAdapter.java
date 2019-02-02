@@ -83,7 +83,7 @@ public class ExpenseListAdapter extends RecyclerView.Adapter<ExpenseListAdapter.
 
         void bind(Expense expense) {
             expenseTitleTextView.setText(expense.getTitle());
-            expenseAmountTextView.setText(String.format(expense.getAmount(), " €"));
+            expenseAmountTextView.setText(String.format(String.valueOf(expense.getAmount()), " €"));
         }
     }
 }

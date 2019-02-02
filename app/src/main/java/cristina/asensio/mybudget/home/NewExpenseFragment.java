@@ -91,7 +91,7 @@ public class NewExpenseFragment extends Fragment {
     private void saveNewExpense() {
         final Expense expense = new Expense(
                 new Date().toString(),
-                newExpenseAmountEdittext.getText().toString(),
+                Float.parseFloat(newExpenseAmountEdittext.getText().toString()),
                 newExpenseTitleEdittext.getText().toString(),
                 newExpenseDescriptionEdittext.getText().toString());
         mExpenseViewModel = ViewModelProviders.of(getActivity()).get(ExpenseViewModel.class);
