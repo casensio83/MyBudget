@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +16,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cristina.asensio.mybudget.R;
+import cristina.asensio.mybudget.util.DecimalDigitsInputFilter;
 
 public class PreferencesFragment extends Fragment implements View.OnClickListener {
 
     private final String PREFERENCES_KEY = "my_budget_preferences";
     private final String MAX_AMOUNT_TO_SPEND_A_MONTH_KEY = "max_amount_to_spend";
     private final float MAX_AMOUNT_TO_SPEND_A_MONTH_DEFAULT = 600;
+    private final int DEFAULT_VALUE = 0;
     private final int PRIVATE_MODE = 0;
 
     @BindView(R.id.preferences_max_amount)
@@ -43,6 +46,12 @@ public class PreferencesFragment extends Fragment implements View.OnClickListene
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        preferencesMaxAmountEditText.setFilters(new InputFilter[]{new DecimalDigitsInputFilter(6, 2)});
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
 
@@ -62,7 +71,7 @@ public class PreferencesFragment extends Fragment implements View.OnClickListene
         final float maxAmountToSpendPerMonth = Float.parseFloat(preferencesMaxAmountEditText.getText().toString());
         final SharedPreferences.Editor editor = mSharedPreferences.edit();
 
-        if (maxAmountToSpendPerMonth != 0) {
+        if (maxAmountToSpendPerMonth != DEFAULT_VALUE) {
             editor.putFloat(MAX_AMOUNT_TO_SPEND_A_MONTH_KEY, maxAmountToSpendPerMonth);
 
         } else {

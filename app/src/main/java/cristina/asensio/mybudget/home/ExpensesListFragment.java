@@ -2,7 +2,6 @@ package cristina.asensio.mybudget.home;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,13 +19,17 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cristina.asensio.mybudget.R;
 import cristina.asensio.mybudget.adapter.ExpenseListAdapter;
+import cristina.asensio.mybudget.manager.TotalAvailableManager;
 import cristina.asensio.mybudget.viewmodel.ExpenseViewModel;
 
 public class ExpensesListFragment extends Fragment {
 
     private final String TOTAL_AVAILABLE_KEY = "total_available";
     private final String PREFERENCES_KEY = "my_budget_preferences";
+    private final String TWO_DECIMALS_FORMAT = "%.2f";
     private final int PRIVATE_MODE = 0;
+    private final int DEFAULT_VALUE = 0;
+
 
     @BindView(R.id.recycler_view)
     RecyclerView listView;
@@ -44,20 +47,9 @@ public class ExpensesListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.screen_list, container, false);
         unbinder = ButterKnife.bind(this, view);
-
         mSharedPreferences = getActivity().getSharedPreferences(PREFERENCES_KEY, PRIVATE_MODE);
-        float maxAmountToSpend = mSharedPreferences.getFloat(TOTAL_AVAILABLE_KEY, 0);
-
-        if(maxAmountToSpend == 0) {
-            Editor editor = mSharedPreferences.edit();
-            editor.putFloat(TOTAL_AVAILABLE_KEY, 600);
-            editor.commit();
-            total = 600;
-        } else{
-            total = maxAmountToSpend;
-        }
-
         showFloatingActionButton();
+        total = TotalAvailableManager.calculateTotalAvailable(mSharedPreferences);
 
         return view;
     }
@@ -75,16 +67,16 @@ public class ExpensesListFragment extends Fragment {
 
         mExpenseViewModel = ViewModelProviders.of(getActivity()).get(ExpenseViewModel.class);
         mExpenseViewModel.getAllExpenses().observe(getActivity(), adapter::setExpenses);
-        totalBudgetTextView.setText(String.valueOf(total));
+        totalBudgetTextView.setText(String.format(TWO_DECIMALS_FORMAT, total));
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (totalBudgetTextView != null) {
-            total = mSharedPreferences.getFloat(TOTAL_AVAILABLE_KEY, 0);
-            totalBudgetTextView.setText(String.valueOf(total));
-        }
+
+        float totalAvailable = mSharedPreferences.getFloat(TOTAL_AVAILABLE_KEY, DEFAULT_VALUE);
+        totalBudgetTextView.setText(String.valueOf(totalAvailable));
+
     }
 
     @Override
