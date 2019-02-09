@@ -28,6 +28,7 @@ public class NewExpenseFragment extends Fragment {
     private final String TOTAL_AVAILABLE_KEY = "total_available";
     private final String PREFERENCES_KEY = "my_budget_preferences";
     private final int PRIVATE_MODE = 0;
+    private final int DEFAULT_VALUE = 0;
 
     @BindView(R.id.new_expense_title_edittext)
     EditText newExpenseTitleEdittext;
@@ -81,7 +82,7 @@ public class NewExpenseFragment extends Fragment {
 
     private void saveNewMaxAmountAvailableToSpend() {
         mSharedPreferences = getActivity().getSharedPreferences(PREFERENCES_KEY, PRIVATE_MODE);
-        float maxAmountToSpend = mSharedPreferences.getFloat(TOTAL_AVAILABLE_KEY, 0);
+        float maxAmountToSpend = mSharedPreferences.getFloat(TOTAL_AVAILABLE_KEY, DEFAULT_VALUE);
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         float newAmount = maxAmountToSpend - Float.parseFloat(newExpenseAmountEdittext.getText().toString());
         editor.putFloat(TOTAL_AVAILABLE_KEY,  newAmount);
